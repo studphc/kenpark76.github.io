@@ -1,0 +1,118 @@
+name: Build Android APK
+
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+    paths:
+      - 'source_code/**'
+      - 'apktool_decoded/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'source_code/**'
+      - 'apktool_decoded/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Java 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: Install Android SDK
+      uses: android-actions/setup-android@v3
+      
+    - name: Install required tools
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y apktool zipalign
+        
+    - name: Decode APK with apktool
+      run: |
+        if [ -f PJYTV.apk ]; then
+          apktool d PJYTV.apk -o apktool_decoded_temp -f
+        fi
+        
+    - name: Copy source code modifications
+      run: |
+        if [ -d apktool_decoded_temp ]; then
+          # Copy modified strings.xml
+          if [ -f apktool_decoded/res/values/strings.xml ]; then
+            cp apktool_decoded/res/values/strings.xml apktool_decoded_temp/res/values/
+          fi
+          
+          # Copy new icons
+          if [ -d source_code/app/src/main/res ]; then
+            for density in hdpi mdpi xhdpi xxhdpi xxxhdpi; do
+              if [ -f source_code/app/src/main/res/mipmap-${density}/ic_launcher.png ]; then
+                cp source_code/app/src/main/res/mipmap-${density}/ic_launcher.png \
+                   apktool_decoded_temp/res/mipmap-${density}/
+              fi
+            done
+          fi
+          
+          # Copy modified Java/Kotlin code (if converted to smali)
+          if [ -d source_code/smali ]; then
+            cp -r source_code/smali/* apktool_decoded_temp/smali/ || true
+          fi
+        fi
+        
+    - name: Build APK with apktool
+      run: |
+        if [ -d apktool_decoded_temp ]; then
+          apktool b apktool_decoded_temp -o TV_Home_unsigned.apk
+        fi
+        
+    - name: Generate keystore
+      run: |
+        keytool -genkey -v \
+          -keystore tvhome.keystore \
+          -alias tvhome \
+          -keyalg RSA \
+          -keysize 2048 \
+          -validity 10000 \
+          -storepass android \
+          -keypass android \
+          -dname "CN=TV Home, OU=Development, O=TV Home, L=Seoul, ST=Seoul, C=KR"
+          
+    - name: Sign APK
+      run: |
+        if [ -f TV_Home_unsigned.apk ]; then
+          jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 \
+            -keystore tvhome.keystore \
+            -storepass android \
+            -keypass android \
+            TV_Home_unsigned.apk tvhome
+        fi
+        
+    - name: Zipalign APK
+      run: |
+        if [ -f TV_Home_unsigned.apk ]; then
+          zipalign -v -p 4 TV_Home_unsigned.apk TV_Home.apk
+        fi
+        
+    - name: Verify APK
+      run: |
+        if [ -f TV_Home.apk ]; then
+          aapt dump badging TV_Home.apk | grep -E "package:|application-label:|launchable-activity:"
+          ls -lh TV_Home.apk
+        fi
+        
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      if: success()
+      with:
+        name: TV-Home-APK
+        path: TV_Home.apk
+        retention-days: 30

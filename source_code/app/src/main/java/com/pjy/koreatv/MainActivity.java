@@ -488,7 +488,6 @@ public final class MainActivity extends FragmentActivity {
     }
 
     public final void prev() {
-        Integer value;
         int groupIndex = TVList.INSTANCE.getTVModel().getGroupIndex();
         
         // PATCH: 즐겨찾기 모드일 때는 즐겨찾기 채널 내에서만 이동
@@ -509,7 +508,8 @@ public final class MainActivity extends FragmentActivity {
         }
         
         // 기존 로직 (전체 채널 이동)
-        int intValue = TVList.INSTANCE.getPosition().getValue() != null ? value.intValue() - 1 : 0;
+        Integer value = TVList.INSTANCE.getPosition().getValue();
+        int intValue = value != null ? value.intValue() - 1 : 0;
         if (intValue == -1) {
             intValue = TVList.INSTANCE.size() - 1;
         }

@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <permission android:name="com.pjy.koreatv.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" android:protectionLevel="signature"/>
     <uses-permission android:name="com.pjy.koreatv.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"/>
-    <application android:theme="@style/Theme.MyTV0" android:label="@string/app_name" android:icon="@drawable/logo0" android:name="com.pjy.koreatv.MyTVApplication" android:allowBackup="true" android:logo="@drawable/logo0" android:largeHeap="true" android:supportsRtl="true" android:banner="@drawable/banner0" android:extractNativeLibs="true" android:usesCleartextTraffic="true" android:networkSecurityConfig="@xml/network" android:appComponentFactory="androidx.core.app.CoreComponentFactory">
+    <application android:theme="@style/Theme.MyTV0" android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:name="com.pjy.koreatv.MyTVApplication" android:allowBackup="true" android:logo="@drawable/logo0" android:largeHeap="true" android:supportsRtl="true" android:banner="@drawable/banner0" android:extractNativeLibs="true" android:usesCleartextTraffic="true" android:networkSecurityConfig="@xml/network" android:appComponentFactory="androidx.core.app.CoreComponentFactory">
         <activity android:name="com.pjy.koreatv.MainActivity" android:exported="true" android:screenOrientation="fullSensor" android:configChanges="smallestScreenSize|screenSize|screenLayout|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

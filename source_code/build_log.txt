@@ -1,0 +1,48 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/8.0/userguide/gradle_daemon.html#sec:disabling_the_daemon.
+Daemon will be stopped at the end of the build 
+WARNING: We recommend using a newer Android Gradle plugin to use compileSdk = 34
+
+This Android Gradle plugin (8.1.0) was tested up to compileSdk = 33 (and compileSdkPreview = "UpsideDownCakePrivacySandbox").
+
+You are strongly encouraged to update your project to use a newer
+Android Gradle plugin that has been tested with compileSdk = 34.
+
+If you are already using the latest version of the Android Gradle plugin,
+you may need to wait until a newer version with support for compileSdk = 34 is available.
+
+To suppress this warning, add/update
+    android.suppressUnsupportedCompileSdk=34
+to this project's gradle.properties.
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:dataBindingMergeDependencyArtifactsDebug
+> Task :app:generateDebugResValues
+> Task :app:generateDebugResources
+
+> Task :app:mergeDebugResources FAILED
+ERROR: [mipmap-hdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-hdpi/ic_launcher.webp [mipmap-hdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-hdpi/ic_launcher.png: Resource and asset merger: Duplicate resources
+ERROR: [mipmap-mdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-mdpi/ic_launcher.webp [mipmap-mdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-mdpi/ic_launcher.png: Resource and asset merger: Duplicate resources
+ERROR: [mipmap-xhdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-xhdpi/ic_launcher.webp [mipmap-xhdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-xhdpi/ic_launcher.png: Resource and asset merger: Duplicate resources
+ERROR: [mipmap-xxhdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp [mipmap-xxhdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-xxhdpi/ic_launcher.png: Resource and asset merger: Duplicate resources
+ERROR: [mipmap-xxxhdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp [mipmap-xxxhdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png: Resource and asset merger: Duplicate resources
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:mergeDebugResources'.
+> [mipmap-hdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-hdpi/ic_launcher.webp	[mipmap-hdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-hdpi/ic_launcher.png: Error: Duplicate resources
+  [mipmap-mdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-mdpi/ic_launcher.webp	[mipmap-mdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-mdpi/ic_launcher.png: Error: Duplicate resources
+  [mipmap-xhdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-xhdpi/ic_launcher.webp	[mipmap-xhdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-xhdpi/ic_launcher.png: Error: Duplicate resources
+  [mipmap-xxhdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp	[mipmap-xxhdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-xxhdpi/ic_launcher.png: Error: Duplicate resources
+  [mipmap-xxxhdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp	[mipmap-xxxhdpi-v4/ic_launcher] /home/user/webapp/source_code/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png: Error: Duplicate resources
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+
+* Get more help at https://help.gradle.org
+
+BUILD FAILED in 11s
+3 actionable tasks: 3 executed

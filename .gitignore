@@ -1,63 +1,37 @@
-# APK 추출 및 디컴파일 파일들 (대용량)
-apk_extracted/
-decompiled/
-jadx/
-jadx-*.zip
-*.apk
-
 # Android build files
-*.iml
-.gradle
-/local.properties
-/.idea/
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
-local.properties
-
-# Android Studio files
-*.iml
-.idea/
-.gradle/
-build/
-captures/
-.navigation/
-output.json
+*.apk
+*.ap_
+*.aab
 
 # Gradle files
 .gradle/
 build/
+*/build/
+gradle-wrapper.jar
 
-# Built application files
-*.apk
-*.aar
-*.ap_
-*.aab
-
-# Java class files
-*.class
-
-# Generated files
-bin/
-gen/
-out/
-release/
-
-# Log files
-*.log
-
-# Android keystore files
+# Local configuration
+local.properties
 *.jks
 *.keystore
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+
+# APKTool
+apktool_decoded/
 
 # OS files
 .DS_Store
 Thumbs.db
 
 # Temporary files
-*.swp
-*.bak
-*~
+*.log
 *.tmp
+*.swp
+*~
+
+# Keep final release APK in root
+!TV_Home.apk
+apk_extracted/

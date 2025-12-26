@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.pjy.koreatv'
+    namespace 'com.tvhome.app'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.pjy.koreatv"
+        applicationId "com.tvhome.app"
         minSdk 21
         targetSdk 34
         versionCode 1
